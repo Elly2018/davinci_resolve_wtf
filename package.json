@@ -1,0 +1,29 @@
+{
+  "name": "davinci_resolve_wtf",
+  "version": "1.0.0",
+  "description": "A simple video converter for davinci resolve free",
+  "homepage": "https://github.com/Elly2018/davinci_resolve_wtf#readme",
+  "bugs": {
+    "url": "https://github.com/Elly2018/davinci_resolve_wtf/issues"
+  },
+  "bin": {
+    "ds_wtf": "./index.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Elly2018/davinci_resolve_wtf.git"
+  },
+  "license": "MIT",
+  "author": "Elly",
+  "type": "commonjs",
+  "main": "index.js",
+  "directories": {
+    "doc": "docs"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "dependencies": {
+    "argparse": "^2.0.1"
+  }
+}
