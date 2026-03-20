@@ -7,7 +7,7 @@
     "url": "https://github.com/Elly2018/davinci_resolve_wtf/issues"
   },
   "bin": {
-    "ds_wtf": "./index.js"
+    "dr_wtf": "./index.js"
   },
   "repository": {
     "type": "git",

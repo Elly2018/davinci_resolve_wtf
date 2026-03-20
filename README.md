@@ -56,7 +56,7 @@ npm i -g davinci_resolve_wtf
 
 ```bash
 # For print out all the possible command
-ds_wtf -h
+dr_wtf -h
 ```
 
 ## Command Details
