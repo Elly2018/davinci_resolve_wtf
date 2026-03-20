@@ -4,11 +4,12 @@ const path = require('path');
 const fs = require('fs');
 const { version } = require('./package.json');
 const { exit } = require('process');
+const { execSync } = require('child_process');
 
-const command = `ffmpeg -hide_banner -i "$1.$2" -c:v dnxhd -profile:v dnxhr_hq -pix_fmt yuv422p -c:a pcm_s16le "$1.mov"`
+const command = `ffmpeg -hide_banner -i "$1" -c:v dnxhd -profile:v dnxhr_hq -pix_fmt yuv422p -c:a pcm_s16le "$2"`
 
 const parser = new ArgumentParser({
-    description: 'Argparse example'
+    description: 'Quickway to convert alot of files'
 });
 
 parser.add_argument('-v', '--version', { action: 'version', version });
@@ -37,9 +38,30 @@ const inpps = fs.readdirSync(data.input, {
     recursive: true,
 })
 
+const exts = data.ext.split('/');
+
+console.log("Filter extensions:", exts);
+
 inpps.filter(x => x.isDirectory()).forEach(dir => {
-    let rel = path.join(dir.parentPath, dir.name);
-    rel = rel.replace(data.input + "/", "");
+    let full = path.join(dir.parentPath, dir.name);
+    const rel = full.replace(data.input + "/", "");
     fs.mkdirSync(path.join(data.output, rel), {recursive: true});
 });
 
+inpps.filter(x => x.isFile()).forEach(file => {
+    let full = path.join(file.parentPath, file.name);
+    let rel = full.replace(data.input + "/", "");
+    const ext = path.extname(full);
+    const index = exts.findIndex(x => x == ext);
+    if(index == -1) return;
+    rel = rel.replaceAll(ext, ".mov");
+    const com = command
+        .replaceAll("$1", full)
+        .replaceAll("$2", path.join(data.output, rel));
+    console.log("command:", com);
+    execSync(com,
+        {
+            stdio: [0, 1, 2]
+        }
+    );
+});
