@@ -5,6 +5,8 @@ const fs = require('fs');
 const { version } = require('./package.json');
 const { exit } = require('process');
 
+const command = `ffmpeg -hide_banner -i "$1.$2" -c:v dnxhd -profile:v dnxhr_hq -pix_fmt yuv422p -c:a pcm_s16le "$1.mov"`
+
 const parser = new ArgumentParser({
     description: 'Argparse example'
 });
@@ -40,3 +42,4 @@ inpps.filter(x => x.isDirectory()).forEach(dir => {
     rel = rel.replace(data.input + "/", "");
     fs.mkdirSync(path.join(data.output, rel), {recursive: true});
 });
+
